@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Inheritance Games</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+padding:0;
+font-family:'EB Garamond', serif;
+color:#e7e2da;
+background:
+radial-gradient(circle at top, #0f2a1c 0%, transparent 60%),
+radial-gradient(circle at bottom, #06130d 0%, transparent 60%),
+linear-gradient(to bottom, #020806, #071a12, #0b2418);
+overflow-x:hidden;
+}
+
+/* ================= WILLS INTRO ================= */
+
+#intro{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:9999;
+animation:fadeOut 1s ease 6s forwards;
+}
+
+#intro h1{
+font-family:'Playfair Display';
+color:#d4af37;
+font-size:40px;
+letter-spacing:3px;
+text-align:center;
+animation:type 3s steps(40);
+}
+
+#intro p{
+color:#cfc7b8;
+max-width:600px;
+text-align:center;
+margin-top:20px;
+opacity:0;
+animation:fadeIn 2s ease 2s forwards;
+}
+
+@keyframes fadeOut{
+to{opacity:0; visibility:hidden;}
+}
+
+@keyframes fadeIn{
+to{opacity:1;}
+}
+
+@keyframes type{
+from{width:0;}
+to{width:100%;}
+}
+
+/* ================= HERO ================= */
+
+header{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+background:
+linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600");
+background-size:cover;
+background-position:center;
+}
+
+.hero{
+max-width:800px;
+}
+
+h1{
+font-family:'Playfair Display';
+font-size:80px;
+color:#d4af37;
+letter-spacing:6px;
+}
+
+.subtitle{
+font-size:18px;
+}
+
+/* BUTTONS */
+
+button{
+padding:12px 26px;
+margin:10px;
+border:1px solid #d4af37;
+background:transparent;
+color:#d4af37;
+border-radius:30px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#d4af37;
+color:#07130d;
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+padding:100px 12%;
+}
+
+.card{
+background:rgba(255,255,255,.03);
+border:1px solid rgba(212,175,55,.25);
+padding:40px;
+border-radius:20px;
+}
+
+/* ================= MAP ================= */
+
+.map{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:40px;
+}
+
+.room{
+padding:30px;
+text-align:center;
+border:1px solid rgba(212,175,55,.3);
+cursor:pointer;
+transition:.3s;
+background:rgba(0,0,0,.2);
+}
+
+.room:hover{
+background:rgba(212,175,55,.1);
+transform:scale(1.05);
+}
+
+/* ================= CLUE ================= */
+
+.clue{
+margin-top:20px;
+padding:20px;
+border-left:2px solid #d4af37;
+display:none;
+}
+
+/* ================= CHARACTER ================= */
+
+.character-box{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.character{
+padding:20px;
+width:200px;
+border:1px solid rgba(212,175,55,.2);
+}
+
+/* hidden ARG object */
+
+.hidden{
+position:fixed;
+bottom:10px;
+right:10px;
+opacity:0.05;
+font-size:12px;
+cursor:pointer;
+}
+
+.hidden:hover{
+opacity:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎩 WILL INTRO -->
+<div id="intro">
+<h1>LAST WILL AND TESTAMENT</h1>
+<p>“To the girl who does not yet know she has already won my game…” — Tobias Hawthorne</p>
+</div>
+
+<header>
+<div class="hero">
+
+<h1>The Inheritance Games</h1>
+
+<p class="subtitle">
+A mansion full of secrets. A fortune left to a stranger. A game still unfolding.
+</p>
+
+<button onclick="document.getElementById('plot').scrollIntoView()">
+Explore Story
+</button>
+
+<button onclick="document.getElementById('map').scrollIntoView()">
+Hawthorne House Map
+</button>
+
+</div>
+</header>
+
+<!-- PLOT -->
+<section id="plot">
+<div class="card">
+<h2>The Plot</h2>
+<p>
+Avery Grambs is an ordinary girl trying to survive life.
+
+But everything changes when billionaire Tobias Hawthorne dies and leaves her his entire fortune.
+
+To claim it, she must live inside Hawthorne House — a sprawling mansion filled with coded messages, secret passageways, and dangerous riddles.
+
+The Hawthorne heirs are brilliant, rich, and suspicious… especially when none of them know why she was chosen.
+
+But the deeper Avery goes, the clearer it becomes:
+
+This inheritance was never just money.
+
+It was a puzzle.
+</p>
+</div>
+</section>
+
+<!-- 🏛 MAP -->
+<section id="map">
+<div class="card">
+<h2>Hawthorne House</h2>
+
+<div class="map">
+
+<div class="room" onclick="reveal('library')">Library</div>
+<div class="room" onclick="reveal('hall')">Grand Hall</div>
+<div class="room" onclick="reveal('garden')">Maze Garden</div>
+<div class="room" onclick="reveal('study')">Tobias’ Study</div>
+<div class="room" onclick="reveal('basement')">Basement</div>
+<div class="room" onclick="reveal('tower')">West Tower</div>
+
+</div>
+
+<div id="library" class="clue">📚 A book is missing from shelf 3… it was never there.</div>
+<div id="hall" class="clue">🗝 The chandelier casts a shadow shaped like a key.</div>
+<div id="garden" class="clue">🌿 The hedge maze changes every night.</div>
+<div id="study" class="clue">📜 A will signed twice… in different ink.</div>
+<div id="basement" class="clue">⚙ Hidden machinery still running after his death.</div>
+<div id="tower" class="clue">🌙 A window that only opens during storms.</div>
+
+</div>
+</section>
+
+<!-- CHARACTERS -->
+<section>
+<div class="card">
+<h2>Main Characters</h2>
+
+<div class="character-box">
+<div class="character">Avery</div>
+<div class="character">Grayson</div>
+<div class="character">Jameson</div>
+<div class="character">Xander</div>
+<div class="character">Nash</div>
+</div>
+
+</div>
+</section>
+
+<!-- hidden ARG clue -->
+<div class="hidden" onclick="alert('Clue unlocked: “She was chosen long before the will was written.”')">
+✦
+</div>
+
+<footer style="text-align:center;padding:40px;">
+“The game is still in motion.”
+</footer>
+
+<script>
+
+// show map clues
+function reveal(id){
+
+document.querySelectorAll('.clue').forEach(c=>{
+c.style.display='none';
+});
+
+document.getElementById(id).style.display='block';
+
+}
+
+// intro auto-hide safety
+setTimeout(()=>{
+document.getElementById('intro').style.display='none';
+},7000);
+
+</script>
+
+</body>
+</html>
